@@ -24,7 +24,7 @@ jobs:
       run: echo "::set-env name=IMAGE_TAG::$REGISTRY_HOSTNAME/$GCP_PROJECT/$REPOSITORY:$TAG"
 
     - name: Build the Docker image
-      run: cd ./fpm-alpine && docker build . -t "$IMAGE_TAG"
+      run: cd ./apache && docker build . -t "$IMAGE_TAG"
 
     - name: Log in to GCP
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@20c294aabd5331f9f7b8a26e6075d41c31ce5e0d
