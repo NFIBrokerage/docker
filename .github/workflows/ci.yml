@@ -27,7 +27,7 @@ jobs:
       run: cd ./apache && docker build . -t "$IMAGE_TAG"
 
     - name: Log in to GCP
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@20c294aabd5331f9f7b8a26e6075d41c31ce5e0d
+      uses: google-github-actions/setup-gcloud@d592e800e3703212af329f35eaa2d864c93b5ca1
       with:
         service_account_key: ${{ secrets.GCLOUD_JSON_KEY }}
 
