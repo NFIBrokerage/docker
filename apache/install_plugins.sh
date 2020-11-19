@@ -21,5 +21,5 @@ echo -e "Extract all packages in the /usr/src/ directory..."
 
 for PLUGIN_NAME in $PLUGINS_TO_DOWNLOAD
 do
-  unzip -q -o plugins-$PLUGIN_NAME -d /usr/src/plugins/
+  unzip -q -o plugins-$PLUGIN_NAME -d /usr/src/matomo/plugins/
 done;
