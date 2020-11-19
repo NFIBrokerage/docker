@@ -24,7 +24,7 @@ jobs:
       run: echo "IMAGE_TAG=$REGISTRY_HOSTNAME/$GCP_PROJECT/$REPOSITORY:$TAG" >> $GITHUB_ENV
 
     - name: Build the Docker image
-      run: cd ./apache && docker build . -t "$IMAGE_TAG"
+      run: cd ./apache && docker build . -t "$IMAGE_TAG" --build-arg LICENSE_KEY=${{ secrets.MATOMO_LICENSE_KEY }}
 
     - name: Log in to GCP
       uses: google-github-actions/setup-gcloud@d592e800e3703212af329f35eaa2d864c93b5ca1

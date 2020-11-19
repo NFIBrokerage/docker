@@ -2,6 +2,9 @@ FROM php:7.4-apache
 
 LABEL maintainer="pierre@piwik.org"
 
+ARG LICENSE_KEY
+ENV LICENSE_KEY=${LICENSE_KEY}
+
 RUN set -ex; \
 	\
 	savedAptMark="$(apt-mark showmanual)"; \
@@ -85,6 +88,10 @@ RUN set -ex; \
 	rm matomo.tar.gz; \
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
+	
+COPY install_plugins.sh .
+
+RUN ./install_plugins.sh "${MATOMO_VERSION}" "${LICENSE_KEY}"
 
 COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
 
