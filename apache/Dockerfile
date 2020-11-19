@@ -64,11 +64,14 @@ RUN { \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 ENV MATOMO_VERSION 3.14.1
+	
+COPY install_plugins.sh .
 
 RUN set -ex; \
 	fetchDeps=" \
 		dirmngr \
 		gnupg \
+		zip
 	"; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
@@ -86,12 +89,10 @@ RUN set -ex; \
 	rm -rf "$GNUPGHOME" matomo.tar.gz.asc; \
 	tar -xzf matomo.tar.gz -C /usr/src/; \
 	rm matomo.tar.gz; \
+        ./install_plugins.sh "${MATOMO_VERSION}" "${LICENSE_KEY}" \
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
-	
-COPY install_plugins.sh .
 
-RUN ./install_plugins.sh "${MATOMO_VERSION}" "${LICENSE_KEY}"
 
 COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
 
